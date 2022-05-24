@@ -44,7 +44,9 @@ function findThings( string $thingName, array $arr ) : bool
 {
     foreach ($arr as $lookThings) {
         if (is_array($lookThings)) {
-            return findThings( $thingName, $lookThings );
+            if (findThings( $thingName, $lookThings )) {
+                return true;
+            }
         } elseif ( $lookThings == $thingName ) {
             return true;
         }
@@ -52,7 +54,7 @@ function findThings( string $thingName, array $arr ) : bool
     return false;
 }
 
-$thing = 'Книга';// Привести первую букву в заглавную не получается, с кирилицей не работает.
+$thing = 'Ключ';// Привести первую букву в заглавную не получается, с кирилицей не работает.
 
 var_dump(findThings( $thing, $box ));
 

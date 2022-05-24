@@ -17,9 +17,5 @@ function mathMultiplication ( float $x, float $y ) :float
 
 function mathDivision ( float $x, float $y ) : ?float
 {
-    if ( $y == 0 ) {
-        echo 'На 0 делить нельзя'.PHP_EOL;
-        return null;
-    }
-    return $x / $y;
+    return ($y != 0) ? ($x / $y) : null;
 }
