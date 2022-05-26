@@ -18,7 +18,7 @@ $task ->setDescription();
 
 TaskService::addComment($user, $task, $textCom1);
 TaskService::addComment($user, $task, $textCom2);
-
+echo "<pre>";
 print_r($task);
 
 
