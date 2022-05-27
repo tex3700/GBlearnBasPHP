@@ -3,6 +3,12 @@ require_once 'model/UserProvider.php';
 
 session_start();
 
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    unset($_SESSION['username']);
+    header("Location: index.php" );
+    die();
+}
+
 $error = null;
 
 if (isset($_POST['username'], $_POST['password'])) {
@@ -21,12 +27,6 @@ if (isset($_POST['username'], $_POST['password'])) {
         header("Location: index.php" );
     }
 
-    if (isset($_GET['action']) && $_GET['action'] === 'logout') {
-        //setcookie('username', null, -1, '/');
-        unset($_SESSION['username']);
-        header("Location: /" );
-        // unset($_COOKIE['username']);
-    }
-}//погулять с собакой [done]
+}
 
 include "view/signin.php";
