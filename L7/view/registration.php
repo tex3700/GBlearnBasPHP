@@ -32,11 +32,11 @@
                 <?=$error?>
             </div>
             <label for="usernameReg" class="visually-hidden">Логин</label>
-            <input type="text" id="username" name="usernameReg" class="form-control mt-3" placeholder="Введите имя пользователя" required="" autofocus="">
+            <input type="text" id="usernameReg" name="usernameReg" class="form-control mt-3" placeholder="Введите имя пользователя" required="" autofocus="">
             <label for="nameReg" class="visually-hidden">Имя</label>
-            <input type="text" id="username" name="nameReg" class="form-control mt-3" placeholder="Как к вам обращаться" required="" autofocus="">
+            <input type="text" id="nameReg" name="nameReg" class="form-control mt-3" placeholder="Как к вам обращаться" required="" autofocus="">
             <label for="password" class="visually-hidden">Пароль</label>
-            <input type="password" id="password" name="passwordReg" class="form-control" placeholder="Введите пароль" required="">
+            <input type="password" id="passwordReg" name="passwordReg" class="form-control mt-3" placeholder="Введите пароль" required="">
             <button class="w-75 btn btn-lg btn-primary mt-1" type="submit">Зарегистрироваться</button>
             <div class="mt-3">
                 <a href="/">Назад</a>

@@ -1,11 +1,11 @@
 <?php
 
-class User
+class User extends BaseId
 {
     private string $username;
     private string $name;
 
-    public function __construct(string $username)
+    public function __construct(string $username = "")
     {
         $this->username = $username;
     }
@@ -34,5 +34,6 @@ class User
 
         return $this;
     }
+
 
 }

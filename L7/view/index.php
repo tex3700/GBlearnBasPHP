@@ -7,9 +7,9 @@
 
 <?php if (is_null($username)): ?>
     <a href="/?controller=security">Войти</a><br>
-    <a href="/?controller=security&action=registration">Зарегистрироваться</a>
+    <a href="/?controller=registration">[Зарегистрироваться]</a>
 <?php else: ?>
-   Добро пожаловать <?= '"'. $name .'"' ?>! <a href="/?controller=security&action=logout">Выйти</a>
+   Добро пожаловать <?= $name ?>! <a href="/?controller=security&action=logout">Выйти</a>
    <a href="/?controller=tasks">Задачи</a>
 
 <?php endif; ?>

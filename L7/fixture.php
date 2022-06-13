@@ -14,8 +14,9 @@ $pdo->exec('CREATE TABLE users (
 
 $pdo->query('CREATE TABLE tasks (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    description VARCHAR(600),
-    isDone TINYINT(1)
+    userId INTEGER,
+    description VARCHAR(200),
+    isDone TINYINT(1) DEFAULT (0)
 )');
 
 $user = new User('admin');

@@ -13,15 +13,11 @@ class TaskProvider
 
     public function getUndoneList(): array
     {
-        $result = [];
-        $statement = $this->pdo->query('SELECT * FROM tasks');
-        while ($statement && $tasks = $statement->fetch()) {
-
-            if (!$tasks['isDone']) {
-                $result[] = $tasks['description'];
-            }
-        }
-        return $result;
+       $statement = $this->pdo->prepare(' SELECT * FROM tasks WHERE isDone = 0 AND userId = :id ');
+       $statement->execute([
+           'id' => $_SESSION['userId'],
+       ]);
+        return $statement->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Task::class);
     }
 
 
@@ -33,11 +29,20 @@ class TaskProvider
         }
 
         $statement = $this->pdo->prepare(
-            'INSERT INTO tasks ( description, isDone ) VALUES ( :description, :isDone )'
+            'INSERT INTO tasks ( description, userId ) VALUES ( :description, :userId )'
         );
         return $statement->execute([
             'description' => $task->getDescription(),
-            'isDone' => $task->isDone()
+            'userId' => $_SESSION['userId']
+        ]);
+    }
+
+    public function doDoneTask (int $id): bool
+    {
+        $statement = $this->pdo->prepare(' UPDATE tasks SET isDone = 1 WHERE id = :id AND userId = :userId ');
+        return $statement->execute([
+            'userId' => $_SESSION['userId'],
+            'id' => $id
         ]);
     }
 

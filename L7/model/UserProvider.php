@@ -1,7 +1,5 @@
 <?php
 
-require_once 'User.php';
-
 class UserProvider
 {
     private PDO $pdo;
@@ -12,25 +10,27 @@ class UserProvider
     }
 
 
-    public function registerUser(User $user, string $plainPassword): bool
+    /**
+     * @throws Exception
+     */
+    public function registerUser(User $user, string $plainPassword): int
     {
 
-        $checkRegister = $this->pdo->prepare('SELECT * FROM users WHERE username LIKE ? ');
-        $checkRegister->execute([$user->getUsername()]);
-        if (!$checkRegister->fetch()) {
-
+        if ( strlen($user->getUsername()) > 30 ) {
+            throw new Exception('Логин не должен быть более 30 символов');
+        }
             $statement = $this->pdo->prepare(
                 'INSERT INTO users (name, username, password) VALUES (:name, :username, :password)'
             );
 
-            return $statement->execute([
+            $statement->execute([
                 'name' => $user->getName(),
                 'username' => $user->getUsername(),
                 'password' => md5($plainPassword)
             ]);
-        }
 
-        return false;
+            return $this->pdo->lastInsertId();
+
     }
 
 
@@ -47,6 +47,13 @@ class UserProvider
         ]);
         return $statement->fetchObject(User::class, [$username]) ?: null;
         // fetch может вернуть false, а мы поддерживаем только null и User
+    }
+
+    public function checkUsername (string $username): bool
+    {
+        $statement = $this->pdo->prepare('SELECT * FROM users WHERE username = ?');
+        $statement->execute([$username]);
+        return !$statement->fetch();
     }
 
 
